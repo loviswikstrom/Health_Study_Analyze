@@ -13,3 +13,20 @@ def descriptive_statistics(df):
 
 
 
+def disease_amount(df):
+    return df["disease"].sum()
+
+def disease_probability(df):
+    amount = df["disease"].sum()
+    return amount / len(df)
+
+def probability_simulation(df):
+    people = 1000
+    prob = disease_probability(df)
+    disease_sim = np.random.choice(
+        [0, 1],
+        size=people,
+        p=[1 - prob, prob]
+    )
+    return disease_sim
+    
