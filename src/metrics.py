@@ -14,8 +14,10 @@ def descriptive_statistics(df):
     """
     Beräknar beskrivande statistik för utvalda kolumner.
     """
-    columns = ["age", "weight", "height", "systolic_bp", "cholesterol"]
-    return df[columns].describe()
+    columns = ["age", "weight", "height",
+               "systolic_bp", "cholesterol", "disease"
+               ]
+    return df[columns].agg(["mean", "median", "min", "max"])
 
 def disease_amount(df):
     """
@@ -30,17 +32,15 @@ def disease_probability(df):
     amount = df["disease"].sum()
     return amount / len(df)
 
-def probability_simulation(df):
+def probability_simulation(df: pd.DataFrame):
     """
     Simulerar sjukdomsförekomst för 1000 personer.
     """
     people = 1000
     prob = disease_probability(df)
-    disease_sim = np.random.choice(
-        [0, 1],
-        size=people,
-        p=[1 - prob, prob]
-        )
+
+    rng = np.random.default_rng(42)
+    disease_sim = rng.binomial(n=1, p=prob, size=people)
     return disease_sim
     
 def age_bp_regression(df: pd.DataFrame):

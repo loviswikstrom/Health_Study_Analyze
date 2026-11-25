@@ -30,3 +30,9 @@ class HealthAnalyzer:
         Visar sjukdomsförekomst uppdelat på kön.
         """
         viz.bar_disease_sex(self.data)
+
+    def scat_bmi_bp(self):
+        """
+        Visar sambandet mellan BMI och systoliskt blodtryck.
+        """
+        viz.scat_bmi_bp(self.data)

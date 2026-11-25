@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import metrics
+import numpy as np
 
 
 def scat_age_bp(df):
@@ -16,9 +17,15 @@ def scat_age_bp(df):
     slope, intercept = metrics.age_bp_regression(df)
 
     x = df["age"]
-    plt.plot(x, slope * x + intercept, color="red", alpha=0.5)
+    y = df["systolic_bp"]
+    k, m = np.polyfit(x, y, 1).round(2)
+
+    plt.plot(x, k*x + m, color="red", alpha=0.5)
 
     plt.show()
+    print("Det förväntade systoliska blodtrycket ökar med cirka", k, "mmHg / år.")
+
+
 
 
 def bar_disease_sex(df):
